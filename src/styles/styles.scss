@@ -25,22 +25,31 @@ body {
 .marks {
   font-family: 'Indie Flower', cursive;
   .player {
-    color: #FF9933;
+    color: $orange;
   }
   .computer {
-    color: grey;
+    color: $blue;
   }
 }
 
 .choosePlayer {
   margin-top: 40px;
-  button.btn {
-    width: 102px;
-    margin: 10px;
+  .btn {
+    margin: 50px;
     font-size: 70px;
     padding: 0;
     background-color: transparent;
-    border: 2px solid $orange;
     border-radius: 0px;
+    &:hover {
+      color: $orange;
+      transform: scale(1.5);
+    }
+    &:focus {
+      outline: none !important;
+    }
+    &:active {
+      box-shadow: none !important;
+    }
   }
 }
+

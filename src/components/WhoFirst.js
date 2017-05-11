@@ -1,7 +1,6 @@
 import React from 'react';
 
-const RandomFirst = (props) => {
-  let { playerMark, turn, message, firstTurn, renderMessages } = props;
+const WhoFirst = ({ playerMark, turn, message, firstTurn, renderMessages }) => {
   return (
     <div>
       {
@@ -17,8 +16,8 @@ const RandomFirst = (props) => {
             </div>  
           : <div></div>  
       }
-    </div>
+    </div>  
   );
 };
 
-export default RandomFirst;
+export default WhoFirst;

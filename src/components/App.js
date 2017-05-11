@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+import Header from './Header';
 import ChooseLetter from './ChooseLetter';
-import RandomFirst from './RandomFirst';
+import WhoFirst from './WhoFirst';
+import TicTacToe from './TicTacToe';
+import PlayAgain from './PlayAgain';
 import { whoStartsFirst, getBoard } from '../utils/helpers';
 
 class App extends Component {
@@ -8,12 +11,12 @@ class App extends Component {
     super();
 
     this.state = {
-      playerMark: null,
-      computerMark: null,
-      turn: null,
+      playerMark: 'X',
+      computerMark: 'O',
+      turn: 'player',
       message: '',
       board: [],
-      gameIsPlaying: false
+      gameIsPlaying: true
     }
   }
 
@@ -30,32 +33,38 @@ class App extends Component {
       let message = (first === 'player') 
         ? 'Zaczynasz pierwszy. Powodzenia!' 
         : 'Zaczyna komputer. Powodzenia!';
-      this.setState({ turn : first, message});
+      this.setState({ 
+        turn : first, 
+        message
+      });
     }, 1000);
   }
 
-  renderMessages = () => {
+  renderMessages = () => { // rename !!!
     setTimeout(() => this.setState({ 
       message: '', 
-      gameIsPlaying: true 
+      gameIsPlaying: true,
+      board: new Array(9).fill(' ') 
     }), 2000);
   }
-
+  playAgain = () => {
+    this.setState({
+      gameIsPlaying: false,
+      playerMark: null,
+      turn: null,
+      board: new Array(9).fill(' ')
+    });
+  }
   render() {
     return (
       <div className="container">
         <div className="row">
-          <div className="col-sm-3 title text-center">
-            <h1>Kółko i Krzyżyk</h1>
-          </div>
-          {
-            this.state.playerMark == null 
-            ? <ChooseLetter
-                chooseLetter={this.chooseLetter}
-              />
-            : <div></div>
-          }
-          <RandomFirst 
+          <Header />
+          <ChooseLetter
+            playerMark={this.state.playerMark}
+            chooseLetter={this.chooseLetter}
+          />
+          <WhoFirst 
             playerMark={this.state.playerMark}
             turn={this.state.turn}
             message={this.state.message}
@@ -65,11 +74,12 @@ class App extends Component {
           {
             this.state.gameIsPlaying 
             ? <div>
-              Board !!! <br/>
-              Chcesz zagrać jeszcze raz? 
-              <button className="btn" onClick={() => this.setState({gameIsPlaying: false, playerMark: null, turn: null})}>Jeszcze raz</button>
+              <TicTacToe />              
+              
             </div>
-            : <div></div>
+            : <div>
+              <PlayAgain playAgain={this.playAgain} />
+            </div>
           }
         </div>
       </div>
