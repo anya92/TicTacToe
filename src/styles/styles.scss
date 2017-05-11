@@ -3,14 +3,44 @@
   src: url(../../public/fonts/IndieFlower.ttf);
 }
 
+body {
+  font-family: cursive;
+}
+
 .title {
-  width: 50%;
-  h1 {
+  // width: 50%;
+  // margin-left: 50px;
+    // padding: 0px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  h1 {  
     font-family: 'Indie Flower', cursive;
     font-size: 50px;
-    margin-left: 100px;
     letter-spacing: 2.5px;
-    transform: rotate(-10deg);
+    // transform: rotate(-10deg);
   }
 }
 
+.marks {
+  font-family: 'Indie Flower', cursive;
+  .player {
+    color: tomato;
+  }
+  .computer {
+    color: grey;
+  }
+}
+.choosePlayer {
+  margin-top: 40px;
+  button.btn {
+  // width: 50px;
+  // height: 50px;
+    width: 102px;
+    margin: 10px;
+    font-size: 70px;
+    padding: 0;
+    background-color: transparent;
+    border: 1px solid tomato;
+}
+
+}
