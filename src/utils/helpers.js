@@ -3,3 +3,8 @@ export const whoStartsFirst = () => {
   const firstMove = (randomNumber >= 5) ? 'player' : 'computer';
   return firstMove;
 }
+
+export const getBoard = () => {
+  const boardArray = new Array(9).fill(' ');
+  return boardArray;
+}
