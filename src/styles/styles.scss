@@ -1,0 +1,16 @@
+@font-face {
+  font-family: 'Indie Flower';
+  src: url(../../public/fonts/IndieFlower.ttf);
+}
+
+.title {
+  width: 50%;
+  h1 {
+    font-family: 'Indie Flower', cursive;
+    font-size: 50px;
+    margin-left: 100px;
+    letter-spacing: 2.5px;
+    transform: rotate(-10deg);
+  }
+}
+
