@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ChooseLetter from './ChooseLetter';
+import RandomFirst from './RandomFirst';
 import { whoStartsFirst, getBoard } from '../utils/helpers';
 
 class App extends Component {
@@ -15,12 +16,14 @@ class App extends Component {
       gameIsPlaying: false
     }
   }
+
   chooseLetter = (playerMark, computerMark) => {
     this.setState({
       playerMark,
       computerMark
     });
   }
+
   firstTurn = () => {
     setTimeout(() => {
       let first = whoStartsFirst();
@@ -52,20 +55,13 @@ class App extends Component {
               />
             : <div></div>
           }
-          {
-            this.state.playerMark && this.state.turn == null
-            ? <div className="col-sm-9 choosePlayer text-center">
-                <h2>Losowanie...</h2>
-                {this.firstTurn()}
-                
-              </div>
-            : this.state.message  
-            ?<div className="col-sm-9 choosePlayer text-center">
-                <h2>{this.state.message}</h2>
-                {this.renderMessages()}
-              </div>  
-            : <div></div>  
-          }
+          <RandomFirst 
+            playerMark={this.state.playerMark}
+            turn={this.state.turn}
+            message={this.state.message}
+            firstTurn={this.firstTurn}
+            renderMessages={this.renderMessages}
+          />
           {
             this.state.gameIsPlaying 
             ? <div>

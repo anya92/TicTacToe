@@ -1,7 +1,12 @@
+$orange: #FF9933;
+$black: #000000;
+$blue: #333366;
+
 @font-face {
   font-family: 'Indie Flower';
   src: url(../../public/fonts/IndieFlower.ttf);
 }
+
 
 body {
   font-family: cursive;
@@ -20,7 +25,7 @@ body {
 .marks {
   font-family: 'Indie Flower', cursive;
   .player {
-    color: tomato;
+    color: #FF9933;
   }
   .computer {
     color: grey;
@@ -35,7 +40,7 @@ body {
     font-size: 70px;
     padding: 0;
     background-color: transparent;
-    border: 2px solid tomato;
+    border: 2px solid $orange;
     border-radius: 0px;
   }
 }
