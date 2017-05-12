@@ -11,13 +11,12 @@ class App extends Component {
     super();
 
     this.state = {
-      playerMark: 'X',
-      computerMark: 'O',
-      turn: 'player',
-      firstTurn: 'computer',
+      playerMark: ' ',
+      computerMark: ' ',
+      firstTurn: '',
       message: '',
       board: [],
-      gameIsPlaying: true
+      gameIsPlaying: false
     }
   }
 
@@ -35,7 +34,7 @@ class App extends Component {
         ? 'Zaczynasz pierwszy. Powodzenia!' 
         : 'Zaczyna komputer. Powodzenia!';
       this.setState({ 
-        turn : first, 
+        firstTurn : first, 
         message
       });
     }, 1000);
@@ -52,7 +51,7 @@ class App extends Component {
     this.setState({
       gameIsPlaying: false,
       playerMark: null,
-      turn: null,
+      firstTurn: null,
       board: new Array(9).fill(' ')
     });
   }
@@ -67,7 +66,7 @@ class App extends Component {
           />
           <WhoFirst 
             playerMark={this.state.playerMark}
-            turn={this.state.turn}
+            turn={this.state.firstTurn}
             message={this.state.message}
             firstTurn={this.firstTurn}
             renderMessages={this.renderMessages}
@@ -78,7 +77,6 @@ class App extends Component {
               <TicTacToe 
                 playerMark={this.state.playerMark}
                 computerMark={this.state.computerMark}
-                turn={this.state.turn}
                 firstTurn={this.state.firstTurn}
               />              
               
