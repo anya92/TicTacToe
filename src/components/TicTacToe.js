@@ -1,49 +1,63 @@
 import React, { Component } from 'react';
-import { Stage } from 'react-konva';
 
 class TicTacToe extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
-
-    };
+      board: [' ', 'O', ' ', 'X', ' ', 'O', 'X', ' ', 'O'],
+      gameIsPlaying: true,
+      yourTurn: props.firstTurn === 'player' ? true : false
+    }
   }
 
-  componentWillMount() {
-    let height = window.innerHeight;
-    let width = window.innerWidth;
-    let size = (height < width) ? height * .6 : width * .6;
-    let rows = 3;
-    let unit = size / rows;
-    let coordinates = [];
-    for (let y = 0; y < rows; y++) {
-      for (let x = 0; x < rows; x++) {
-        coordinates.push([x * unit, y * unit]);
-      }
-    }
-
+  firstComputerMove = () => {
+    let { board } = this.state;
+    const { computerMark } = this.props;
+    const moveAi = 0; // funkcja => [0, ... , 9]
+    board.splice(moveAi,1, computerMark);
     this.setState({
-      size,
-      rows,
-      unit,
-      coordinates
+      yourTurn: true,
+      board
     });
   }
 
+  componentDidMount() {
+    let { firstTurn } = this.props;
+    firstTurn === 'computer' 
+    ? setTimeout(() => this.firstComputerMove(), 5000) 
+    : null;
+  }
+
+  game = () => {
+    let { playerMark, computerMark, turn } = this.props;
+    let { board, gameIsPlaying } = this.state;
+    
+  }
+
   render() {
-    let { size, rows, unit, coordinates } = this.state;
+    let { board } = this.state;
     return (
-      <div>
-        <Stage
-          height={size}
-          width={size}
-        >
-          
-        </Stage>
+      <div className="col-sm-9 text-center">
+        <div className="gameboard col-sm-8 col-sm-offset-2">
+          {
+            board.map((cell, index) => {
+              return (  
+                <div 
+                  key={index} 
+                  className={`cells cell${index}`}
+                  onClick={() => this.game()}
+                >
+                  {cell}
+                </div>
+              );
+            })
+          }
+        </div>   
       </div>
     );
   }
 }
+
 
 export default TicTacToe;

@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "bootstrap": "^3.3.7",
+    "konva": "^1.6.2",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-konva": "^1.1.3"

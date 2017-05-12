@@ -2,7 +2,7 @@ import React from 'react';
 
 const PlayAgain = ({ playAgain }) => {
   return (
-    <div className="col-md-9 text-center">
+    <div className="col-sm-9 text-center">
       <h2>Chcesz zagrać jeszcze raz? </h2>
       <button 
         className="btn" 

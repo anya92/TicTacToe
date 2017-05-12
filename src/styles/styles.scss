@@ -53,3 +53,27 @@ body {
   }
 }
 
+.gameboard {
+  // border: 2px solid $orange;
+  margin-top: 80px;
+  height: 400px;
+  font-family: 'Indie Flower', cursive;
+  font-size: 120px;
+  line-height: 120px;
+  .cells {
+    width: 33%;
+    height: 33%;
+    float: left;
+    cursor: pointer;
+  }
+  .cell0, .cell1, .cell3, .cell4, .cell6, .cell7 {
+    border-right: 3px solid $blue;
+  }
+  .cell0, .cell1, .cell2, .cell3, .cell4, .cell5 {
+    border-bottom: 3px solid $blue;
+  }
+}
+
+
+
+

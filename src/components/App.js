@@ -4,7 +4,7 @@ import ChooseLetter from './ChooseLetter';
 import WhoFirst from './WhoFirst';
 import TicTacToe from './TicTacToe';
 import PlayAgain from './PlayAgain';
-import { whoStartsFirst, getBoard } from '../utils/helpers';
+import { whoStartsFirst } from '../utils/helpers';
 
 class App extends Component {
   constructor() {
@@ -14,6 +14,7 @@ class App extends Component {
       playerMark: 'X',
       computerMark: 'O',
       turn: 'player',
+      firstTurn: 'computer',
       message: '',
       board: [],
       gameIsPlaying: true
@@ -74,7 +75,12 @@ class App extends Component {
           {
             this.state.gameIsPlaying 
             ? <div>
-              <TicTacToe />              
+              <TicTacToe 
+                playerMark={this.state.playerMark}
+                computerMark={this.state.computerMark}
+                turn={this.state.turn}
+                firstTurn={this.state.firstTurn}
+              />              
               
             </div>
             : <div>
