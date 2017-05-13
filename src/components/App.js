@@ -3,7 +3,6 @@ import Header from './Header';
 import ChooseLetter from './ChooseLetter';
 import WhoFirst from './WhoFirst';
 import TicTacToe from './TicTacToe';
-import PlayAgain from './PlayAgain';
 import { whoStartsFirst } from '../utils/helpers';
 
 class App extends Component {
@@ -11,9 +10,9 @@ class App extends Component {
     super();
 
     this.state = {
-      playerMark: ' ',
-      computerMark: ' ',
-      firstTurn: '',
+      playerMark: null,
+      computerMark: null,
+      firstTurn: null,
       message: '',
       board: [],
       gameIsPlaying: false
@@ -45,8 +44,9 @@ class App extends Component {
       message: '', 
       gameIsPlaying: true,
       board: new Array(9).fill(' ') 
-    }), 2000);
+    }), 1500);
   }
+
   playAgain = () => {
     this.setState({
       gameIsPlaying: false,
@@ -55,6 +55,7 @@ class App extends Component {
       board: new Array(9).fill(' ')
     });
   }
+
   render() {
     return (
       <div className="container">
@@ -78,12 +79,11 @@ class App extends Component {
                 playerMark={this.state.playerMark}
                 computerMark={this.state.computerMark}
                 firstTurn={this.state.firstTurn}
+                playAgain={this.playAgain}
               />              
               
             </div>
-            : <div>
-              <PlayAgain playAgain={this.playAgain} />
-            </div>
+            : <div></div>
           }
         </div>
       </div>

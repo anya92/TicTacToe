@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
+import PlayAgain from './PlayAgain';
 
 class TicTacToe extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      board: [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+      board: new Array(9).fill(' '),
       gameIsPlaying: true,
       yourTurn: props.firstTurn === 'player' ? true : false,
       winner: null
@@ -15,15 +16,19 @@ class TicTacToe extends Component {
   componentDidMount() {
     let { firstTurn } = this.props;
     firstTurn === 'computer' 
-    ? setTimeout(() => this.firstComputerMove(), 1000) 
+    ? setTimeout(() => this.firstComputerMove(), 500) 
     : null;
+    let gameboard = document.getElementById('gameboard');
+    // console.log(gameboard);
+    let width = gameboard.offsetWidth;
+    this.setState({ size: `${width}px` });
   }
 
   firstComputerMove = () => {
     let { board } = this.state;
     const { computerMark } = this.props;
-    const moveAi = 0; // funkcja => [0, ... , 9]
-    board.splice(moveAi,1, computerMark);
+    let computerMoveIndex = this.computerMoveIndex();
+    board.splice(computerMoveIndex, 1, computerMark);
     this.setState({
       yourTurn: true,
       board
@@ -61,7 +66,6 @@ class TicTacToe extends Component {
     let { board, gameIsPlaying, yourTurn } = this.state;
     if (gameIsPlaying) {
     if (yourTurn) { //player move
-      console.log('Players move?', yourTurn);
       if (this.isEmpty(board, index)) { 
         board.splice(index, 1, mark);
         this.setState({
@@ -69,10 +73,15 @@ class TicTacToe extends Component {
         });
          if(this.isWinner(board, playerMark)) {
         this.setState({ gameIsPlaying: false, winner: 'player' });
+        let winningCombo = this.getWinningCombo(board);
+        winningCombo.map(mark => {
+          let cell = document.getElementById(`cell${mark}`);
+          cell.classList.add('winner');
+        });
       } else {
         if (this.isBoardFull(board)) {
-          this.setState({ gameIsPlaying: false, winner: 'tie' });
-        } else {
+          this.setState({ gameIsPlaying: false, winner: 'Remis' });
+        } else { // computer move
           this.setState({ yourTurn: !yourTurn });
           setTimeout(() => this.computerMove(computerMark), 500);
         }
@@ -82,35 +91,9 @@ class TicTacToe extends Component {
       }
      }
     } 
-
-
-    // if (!yourTurn) {
-    //   console.log('It\'s computer move');
-    //   // return;
-    // }
-    // if (this.isEmpty(board, index)) {
-    //   yourTurn = !yourTurn;
-    //   board.splice(index, 1, mark);
-    //   this.setState({
-    //     yourTurn,
-    //     board
-    //   });
-    //   setTimeout(() => { // oddzielna funkcja
-    //     let computerMoveIndex = this.computerMove();
-    //     yourTurn = !yourTurn;
-    //     board.splice(computerMoveIndex, 1, computerMark);
-    //     this.setState({
-    //       yourTurn,
-    //       board
-    //     });
-    //   }, 500);
-      
-    // }
-    
-    // computer move
   }
 
-  makeMove = (boardCopy, mark, move) => {
+  makeMove = (boardCopy, mark, move) => { // => przenieść do tej większej
     boardCopy[move] = mark;
   }
   computerMove = (computerMark) => {
@@ -123,9 +106,14 @@ class TicTacToe extends Component {
       });
       if(this.isWinner(board, computerMark)) {
         this.setState({ gameIsPlaying: false, winner: 'computer'});
+        let winningCombo = this.getWinningCombo(board);
+        winningCombo.map(mark => {
+          let cell = document.getElementById(`cell${mark}`);
+          cell.classList.add('winner');
+        });
       } else {
         if (this.isBoardFull(board)) {
-          this.setState({ gameIsPlaying: false, winner: 'tie' });
+          this.setState({ gameIsPlaying: false, winner: 'Remis' });
           
         } else {
           this.setState({ yourTurn: !yourTurn });
@@ -137,7 +125,7 @@ class TicTacToe extends Component {
     
 
   }
-  computerMoveIndex = () => {
+  computerMoveIndex = () => { // ==> przenieść
     let { board } = this.state;
     const { computerMark, playerMark } = this.props;
     let boardCopy, move;
@@ -162,16 +150,16 @@ class TicTacToe extends Component {
       }
     }
     // try to take one of the corners, if they free
-    move = this.chooseRandomMove(board, [1,3,7,9]);
+    move = this.chooseRandomMove(board, [0,2,6,8]);
     if (move != null) {
       return move;
     }
     // try to take center
-    if (this.isEmpty(board, 5)) {
+    if (this.isEmpty(board, 4)) {
       return 5;
     }
     // move on one of the sides
-    return this.chooseRandomMove(board, [2,4,6,8]);
+    return this.chooseRandomMove(board, [1,3,5,7]);
   }
 
   chooseRandomMove = (board, listOfMoves) => {
@@ -189,17 +177,22 @@ class TicTacToe extends Component {
   }
 
   render() {
-    let { board } = this.state;
-    let { playerMark } = this.props;
+    let { board, gameIsPlaying } = this.state;
+    let { playerMark, playAgain } = this.props;
     return (
       <div className="col-sm-9 text-center">
-        <div className="gameboard col-sm-8 col-sm-offset-2">
+        <div 
+          className="col-sm-8 col-sm-offset-2" 
+          id="gameboard"
+          style={{height: this.state.size}}
+        >
           {
             board.map((cell, index) => {
               return (  
                 <div 
                   key={index} 
-                  className={`cells cell${index}`}
+                  className={'cells'}
+                  id={`cell${index}`}
                   onClick={() => this.playerMove(index, playerMark)}
                 >
                   {cell}
@@ -208,7 +201,12 @@ class TicTacToe extends Component {
             })
           }
         </div>  
-        {this.state.winner} 
+        <h2>{this.state.winner}</h2> 
+        {
+          !gameIsPlaying 
+          ? <PlayAgain playAgain={playAgain}/>
+          : <div></div>
+        }
       </div>
     );
   }
