@@ -6,7 +6,6 @@ const ChooseLetter = ({ playerMark, chooseLetter }) => {
       {
         playerMark == null
         ? <div className="col-sm-9 choosePlayer text-center">
-            <h2>Wybierz Gracza</h2>
             <button 
               className="marks btn"
               onClick={() => chooseLetter('X', 'O')}
@@ -19,6 +18,7 @@ const ChooseLetter = ({ playerMark, chooseLetter }) => {
             >
               O
             </button>
+            <h2>Wybierz Gracza</h2>
           </div>
         : <div></div>  
       }

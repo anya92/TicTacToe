@@ -9,34 +9,28 @@ $blue: #333366;
 
 
 body {
-  font-family: cursive;
+  font-family: 'Indie Flower';
 }
 
 .title {
+    font-family: 'Indie Flower', cursive;
     margin-top: 20px;
     margin-bottom: 20px;
   h1 {  
-    font-family: 'Indie Flower', cursive;
-    font-size: 50px;
+    font-size: 45px;
     letter-spacing: 2.5px;
   }
 }
 
 .marks {
   font-family: 'Indie Flower', cursive;
-  .player {
-    color: $orange;
-  }
-  .computer {
-    color: $blue;
-  }
 }
 
 .choosePlayer {
   margin-top: 40px;
   .btn {
     margin: 50px;
-    font-size: 70px;
+    font-size: 80px;
     padding: 0;
     background-color: transparent;
     border-radius: 0px;
@@ -55,14 +49,21 @@ body {
 }
 
 #gameboard {
-  // border: 2px solid $orange;
+  position: relative;
   color: $black;
-  margin-top: 80px;
-  // height: 400px;
+  margin-top: 20px;
+  max-width: 400px;
+  height: 400px;
   font-family: 'Indie Flower', cursive;
-  font-size: 120px;
-  line-height: 120px;
+  font-size: 100px;
+  line-height: 110px;
   transition: color .3s;
+  @media all and (max-width: 768px) {
+    margin: auto;
+    margin-top: 20px;
+    max-width: 350px;
+    height: 350px;
+  }
   .cells {
     width: 33%;
     height: 33%;
@@ -77,6 +78,35 @@ body {
   }
   .winner {
     color: $orange;
+  }
+}
+
+.winner {
+  min-height: 100px;
+  display: absolute;
+  h2 {
+    padding-top: 5px;
+    font-size: 40px;
+  }
+  span {
+    color: $orange;
+    font-size: 50px;
+  }
+  .play-again {
+    h3 {
+      display: inline-block;
+    }
+    .btn {
+      background-color: transparent;
+      color: $orange;
+      font-size: 30px;
+      &:focus {
+        outline: none !important;
+      }
+      &:active {
+        box-shadow: none !important;
+      }
+    }
   }
 }
 

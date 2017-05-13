@@ -14,7 +14,6 @@ class App extends Component {
       computerMark: null,
       firstTurn: null,
       message: '',
-      board: [],
       gameIsPlaying: false
     }
   }
@@ -30,8 +29,8 @@ class App extends Component {
     setTimeout(() => {
       let first = whoStartsFirst();
       let message = (first === 'player') 
-        ? 'Zaczynasz pierwszy. Powodzenia!' 
-        : 'Zaczyna komputer. Powodzenia!';
+        ? 'Zaczynasz pierwszy.' 
+        : 'Zaczyna komputer.';
       this.setState({ 
         firstTurn : first, 
         message
@@ -42,8 +41,7 @@ class App extends Component {
   renderMessages = () => { // rename !!!
     setTimeout(() => this.setState({ 
       message: '', 
-      gameIsPlaying: true,
-      board: new Array(9).fill(' ') 
+      gameIsPlaying: true
     }), 1500);
   }
 

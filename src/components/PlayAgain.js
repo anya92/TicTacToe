@@ -2,14 +2,14 @@ import React from 'react';
 
 const PlayAgain = ({ playAgain }) => {
   return (
-    <div className="col-sm-9 text-center">
-      <h2>Chcesz zagrać jeszcze raz? </h2>
-      <button 
+    <div className="play-again">
+      <h3>Chcesz zagrać jeszcze raz? </h3>
+      <a
         className="btn" 
         onClick={() => playAgain()}
       >
-        Zagraj jeszcze raz
-      </button>
+        Start
+      </a>
     </div>
   );
 };

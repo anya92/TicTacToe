@@ -18,10 +18,13 @@ class TicTacToe extends Component {
     firstTurn === 'computer' 
     ? setTimeout(() => this.firstComputerMove(), 500) 
     : null;
-    let gameboard = document.getElementById('gameboard');
-    // console.log(gameboard);
-    let width = gameboard.offsetWidth;
-    this.setState({ size: `${width}px` });
+    // let gameboard = document.getElementById('gameboard');
+    // let width = gameboard.offsetWidth;
+    // this.setState({ size: `${width}px` });
+    let height = window.innerHeight;
+    let width = window.innerWidth;
+    let size = (height < width) ? height * .8 : width * .8;
+    this.setState({size});
   }
 
   firstComputerMove = () => {
@@ -72,7 +75,7 @@ class TicTacToe extends Component {
           board
         });
          if(this.isWinner(board, playerMark)) {
-        this.setState({ gameIsPlaying: false, winner: 'player' });
+        this.setState({ gameIsPlaying: false, winner: 'Wygrałeś!!!' });
         let winningCombo = this.getWinningCombo(board);
         winningCombo.map(mark => {
           let cell = document.getElementById(`cell${mark}`);
@@ -105,7 +108,7 @@ class TicTacToe extends Component {
         board
       });
       if(this.isWinner(board, computerMark)) {
-        this.setState({ gameIsPlaying: false, winner: 'computer'});
+        this.setState({ gameIsPlaying: false, winner: 'Przegrałeś...'});
         let winningCombo = this.getWinningCombo(board);
         winningCombo.map(mark => {
           let cell = document.getElementById(`cell${mark}`);
@@ -177,14 +180,21 @@ class TicTacToe extends Component {
   }
 
   render() {
-    let { board, gameIsPlaying } = this.state;
+    let { board, gameIsPlaying, winner } = this.state;
     let { playerMark, playAgain } = this.props;
     return (
       <div className="col-sm-9 text-center">
+        <div className="winner">
+          <h2>{winner}</h2>
+          {
+            !gameIsPlaying 
+            ? <PlayAgain playAgain={playAgain}/>
+            : <h2>Grasz <span>{playerMark}</span></h2>
+          }
+        </div>
         <div 
-          className="col-sm-8 col-sm-offset-2" 
+          className="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3" 
           id="gameboard"
-          style={{height: this.state.size}}
         >
           {
             board.map((cell, index) => {
@@ -201,12 +211,7 @@ class TicTacToe extends Component {
             })
           }
         </div>  
-        <h2>{this.state.winner}</h2> 
-        {
-          !gameIsPlaying 
-          ? <PlayAgain playAgain={playAgain}/>
-          : <div></div>
-        }
+        
       </div>
     );
   }
