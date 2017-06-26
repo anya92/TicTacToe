@@ -7,7 +7,6 @@ $blue: #333366;
   src: url(../../public/fonts/IndieFlower.ttf);
 }
 
-
 body {
   font-family: 'Indie Flower';
 }
@@ -55,11 +54,11 @@ body {
   max-width: 400px;
   height: 400px;
   font-family: 'Indie Flower', cursive;
-  font-size: 100px;
-  line-height: 110px;
+  font-size: 110px;
+  line-height: 130px;
   transition: color .3s;
   @media all and (max-width: 768px) {
-    margin: auto;
+    // margin: auto;
     margin-top: 20px;
     max-width: 350px;
     height: 350px;
